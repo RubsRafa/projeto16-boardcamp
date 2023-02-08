@@ -5,8 +5,8 @@ export async function postGamesValidation(req, res, next) {
 
     try {
 
-        if (!game) return res.sendStatus(404);
-        if (!game.name || !game.image || !game.stockTotal || !game.pricePerDay) return res.sendStatus(404)
+        if (!game) return res.sendStatus(400);
+        if (!game.name || !game.image || !game.stockTotal || !game.pricePerDay) return res.sendStatus(400)
 
         if (game.stockTotal < 1 && game.pricePerDay < 1) return res.sendStatus(400)
 
