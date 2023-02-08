@@ -20,7 +20,7 @@ export async function postGames(req, res) {
     try {
         console.log('entrou  no try')
 
-        await db.query(`INSERT INTO games (name, image, "stockTotal", "pricePerDay") values ('${game.name}', '${game.image}', ${game.stockTotal}, ${game.pricePerDay});`)
+        await db.query(`INSERT INTO games (name, image, "stockTotal", "pricePerDay") values ($1, $2, $3, $4);`, [game.name, game.image, game.stockTotal, game.pricePerDay])
         console.log('POST no game')
         return res.sendStatus(201)
         

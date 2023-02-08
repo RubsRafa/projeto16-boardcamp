@@ -10,7 +10,7 @@ export async function postGamesValidation(req, res, next) {
 
         if (game.stockTotal < 1 && game.pricePerDay < 1) return res.sendStatus(400)
 
-        const gameNameExist = await db.query(`SELECT (name) FROM games where name = '${game.name}';`);
+        const gameNameExist = await db.query('SELECT (name) FROM games where name = $1;', [game.name]);
      
         if (gameNameExist.rows.length !== 0) return res.status(409).send('This game already exist')
 
