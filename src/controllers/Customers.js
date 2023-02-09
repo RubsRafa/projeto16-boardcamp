@@ -40,3 +40,16 @@ export async function postCustomers(req, res) {
         return res.status(500).send(error)
     }
 };
+export async function putCustomers(req, res) {
+    const { id, customer } = res.locals;
+
+    try {
+
+        await db.query('UPDATE customers SET name = $1, phone = $2, cpf = $3, birthday = $4 WHERE id = $5', [customer.name, customer.phone, customer.cpf, customer.birthday, id])
+        return res.sendStatus(200)
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
