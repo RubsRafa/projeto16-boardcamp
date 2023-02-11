@@ -69,7 +69,7 @@ export async function putCustomers(req, res) {
             let cpfExist = await db.query('SELECT * FROM customers WHERE customers.cpf = $1;', [customer.cpf]);
             console.log(cpfExist.rows[0])
 
-            if (cpfExist.rows[0]) return res.sendStatus(400)
+            if (cpfExist.rows[0]) return res.sendStatus(409)
             await db.query('UPDATE customers SET cpf = $1 WHERE id = $2;',[customer.cpf, id])
         }
 
