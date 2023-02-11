@@ -1,6 +1,7 @@
 import { db } from "../database/database.js";
 
 export async function getCustomers(req, res) {
+    console.log('get sem id')
     try {
 
         const customers = await db.query('SELECT * FROM customers;');
@@ -14,6 +15,8 @@ export async function getCustomers(req, res) {
 };
 export async function getCustomersById(req, res) {
     const id = res.locals.id;
+    console.log('get com id')
+    console.log(id)
 
     try {
 
@@ -46,7 +49,7 @@ export async function putCustomers(req, res) {
     try {
 
         const customerChanges = await db.query('SELECT * FROM customers WHERE id = $1', [id]);
-        
+
         if(customerChanges.rows[0].name !== customer.name) {
             await db.query('UPDATE customers SET name = $1 WHERE id = $2;', [customer.name, id])
         }
