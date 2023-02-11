@@ -6,6 +6,9 @@ export async function getCustomerIdValidation(req, res, next) {
     try {
 
         if (!id) return res.sendStatus(404);
+
+        if (id === '') return res.sendStatus(404);
+
         res.locals.id = id;
 
         next(); 
