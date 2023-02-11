@@ -3,16 +3,18 @@ import { db } from '../database/database.js';
 export async function getRentals(req, res) {
     try {
 
-        const rentals = await db.query(`
-        SELECT rentals.*, customers.id AS customer, customers.name AS customer, games.id AS game, games.name AS game 
-        FROM rentals 
-        JOIN customers 
-        ON customers.id = rentals."customerId"
-        JOIN games
-        ON games.id = rentals."gameId";`);
+        const rentals = await db.query('SELECT * FROM rentals');
 
-        console.log(rentals.rows)
-        return res.send(rentals.rows)
+        const customer = await db.query('SELECT customers.id, customers.name FROM customers;');
+        const game = await db.query('SELECT games.id, games.name FROM games;');
+
+        const newRentals = rentals.rows.map(r => ({
+            ...r,
+            customer: customer.rows.find(c => c.id === r.customerId),
+            game: game.rows.find(g => g.id === r.gameId)
+        }))
+
+        return res.send(newRentals)
         
     } catch (error) {
         console.log(error)
