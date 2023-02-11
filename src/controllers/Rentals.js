@@ -86,4 +86,17 @@ export async function finishRentals(req, res) {
         return res.status(500).send(error);
     }
 }
+export async function deleteRentals(req, res) {
+    const id = res.locals.id; 
+
+    try {
+
+        await db.query('DELETE FROM rentals WHERE id = $1', [id]);
+        return res.sendStatus(200);
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error); 
+    }
+}
 //INSERT INTO rentals ("customerId", "gameId", "rentDate", "daysRented", "returnDate", "originalPrice", "delayFee") VALUES (2, 11, '2021-06-20', 3, null, 6000, null);
