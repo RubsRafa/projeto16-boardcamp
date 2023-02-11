@@ -13,7 +13,7 @@ export async function postRentalValidation (req, res, next) {
         
         if (rental.daysRented <= 0) return res.sendStatus(400)
 
-        if (gameIdExist.stockTotal <= 0) return res.sendStatus(400)
+        if (gameIdExist.rows[0].stockTotal <= 0) return res.sendStatus(400)
 
         res.locals.rental = rental;
         next(); 
