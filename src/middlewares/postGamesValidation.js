@@ -2,13 +2,14 @@ import { db } from "../database/database.js";
 
 export async function postGamesValidation(req, res, next) {
     const game = req.body;
+    console.log(game)
 
     try {
 
         if (!game) return res.sendStatus(400);
         if (!game.name || !game.image || !game.stockTotal || !game.pricePerDay) return res.sendStatus(400)
 
-        if (game.stockTotal < 1 && game.pricePerDay < 1) return res.sendStatus(400)
+        if (game.stockTotal < 0 && game.pricePerDay < 1) return res.sendStatus(400)
 
         const gameNameExist = await db.query('SELECT (name) FROM games where name = $1;', [game.name]);
      
