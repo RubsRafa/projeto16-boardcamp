@@ -5,7 +5,7 @@ export async function getGames(req, res) {
 
         const games = await db.query('SELECT * FROM games;')
        
-        return res.send(games.rows)
+        return res.status(200).send(games.rows)
         
     } catch (error) {
         console.log(error)
@@ -15,13 +15,11 @@ export async function getGames(req, res) {
 
 export async function postGames(req, res) {
     const game = res.locals.game;
-    console.log('chegou aqui',game)
 
     try {
-        console.log('entrou  no try')
 
         await db.query(`INSERT INTO games (name, image, "stockTotal", "pricePerDay") values ($1, $2, $3, $4);`, [game.name, game.image, game.stockTotal, game.pricePerDay])
-        console.log('POST no game')
+        
         return res.sendStatus(201)
         
     } catch (error) {
