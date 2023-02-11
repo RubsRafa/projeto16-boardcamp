@@ -5,6 +5,8 @@ export async function postCustomerValidation(req, res, next) {
     
     try {
 
+        if(customer.name === "") return res.sendStatus(400);
+
         const userCpfExist = await db.query('SELECT * FROM customers WHERE cpf = $1', [customer.cpf])
 
         if(userCpfExist.rows[0]) return res.sendStatus(409);
