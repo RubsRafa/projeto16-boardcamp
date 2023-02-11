@@ -60,8 +60,8 @@ export async function finishRentals(req, res) {
         console.log('rentDate', rentDate.rows[0].rentDate)
 
         // ((((diaAlugado - diaDevolvido)/100000000)*(-1)).toFixed(0))
-        const delay = (((rentDate.rows[0].rentDate - returnDate) / 100000000) * (-1)).toFixed(0);
-        console.log('delay', delay)
+        const delay = (((rentDate.rows[0].rentDate - returnDate) / 100000000) * (-1));
+        console.log('delay', Math.round(delay))
 
         const gameIdForPrice = await db.query('SELECT * FROM rentals WHERE id = $1', [id]);
         console.log('gameIdforprice', gameIdForPrice.rows[0].gameId)
@@ -70,11 +70,11 @@ export async function finishRentals(req, res) {
         console.log('price', price.rows[0].pricePerDay / 100)
 
         let delayFee;
-        if (delay - rental.rows[0].daysRented <= 0) {
+        if (Math.round(delay) - rental.rows[0].daysRented <= 0) {
             delayFee = 0;
 
         } else {
-            delayFee = (delay - rental.rows[0].daysRented) * (price.rows[0].pricePerDay) / 100;
+            delayFee = (Math.round(delay) - rental.rows[0].daysRented) * (price.rows[0].pricePerDay) / 100;
             console.log('delayFee', delayFee.toFixed(2).replace('.', ''))
         }
 
