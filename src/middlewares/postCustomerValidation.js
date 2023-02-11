@@ -7,7 +7,7 @@ export async function postCustomerValidation(req, res, next) {
 
         if(customer.name === "") return res.sendStatus(400);
 
-        if(typeof(Number(customer.cpf)) !== 'number') return res.sendStatus(400)
+        if(Number(customer.cpf) !== NaN) return res.sendStatus(400)
 
         const userCpfExist = await db.query('SELECT * FROM customers WHERE cpf = $1', [customer.cpf])
 
