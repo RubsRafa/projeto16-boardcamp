@@ -45,7 +45,26 @@ export async function putCustomers(req, res) {
 
     try {
 
-        await db.query('UPDATE customers SET name = $1, phone = $2, cpf = $3, birthday = $4 WHERE id = $5', [customer.name, customer.phone, customer.cpf, customer.birthday, id])
+        const customerChanges = await db.query('SELECT * FROM customers WHERE id = $1', [id]);
+        
+        if(customerChanges.rows[0].name !== customer.name) {
+            await db.query('UPDATE customers SET name = $1 WHERE id = $2;', [customer.name, id])
+        }
+
+        if(customerChanges.rows[0].phone !== customer.phone) {
+            await db.query('UPDATE customers SET phone = $1 WHERE id = $2;', [customer.phone, id])
+        }
+
+        if(customerChanges.rows[0].birthday !== customer.birthday) {
+            await db.query('UPDATE customers SET birthday = $1 WHERE id = $2;', [customer.birthday, id])
+        }
+
+        if(customerChanges.rows[0].cpf !== customer.cpf) {
+            const cpfExist = await db.query('SELECT * FROM customers WHERE cpf = $1;'[customer.cpf]);
+            if (cpfExist.rows[0]) return res.sendStatus(400)
+            await db.query('UPDATE customers SET cpf = $1 WHERE id = $2;',[customer.cpf, id])
+        }
+
         return res.sendStatus(200)
 
     } catch (error) {
