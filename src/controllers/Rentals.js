@@ -22,17 +22,26 @@ export async function getRentals(req, res) {
     }
 };
 export async function postRentals(req, res) {
-    const rental = req.body; 
+    const rental = res.locals.rental; 
+
     //rental = customerId, gameId, daysRented;
     try {
-        const price = await db.query('SELECT * FROM games WHERE id = $1', [rental.gameId]).rows[0].pricePerDay; 
-        const originalPrice = price * rental.daysRented;
+        const rentDate = new Date();
+
+        const price = await db.query('SELECT * FROM games WHERE id = $1;', [rental.gameId]); 
+
+        const originalPrice = price.rows[0].pricePerDay * rental.daysRented;
+        
+        const returnDate = null;
+        const delayFee = null;
 
         await db.query(`INSERT INTO rentals 
         ("customerId", "gameId", "rentDate", "daysRented", "returnDate", "originalPrice", "delayFee") 
         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-        [rental.customerId, rental.gameId, Date('YYYY,MM,DD'), rental.daysRented, null, originalPrice, null]);
+        [rental.customerId, rental.gameId, rentDate, rental.daysRented, returnDate, originalPrice, delayFee]);
         
+        return res.sendStatus(201);
+
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
