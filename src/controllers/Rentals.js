@@ -60,7 +60,7 @@ export async function finishRentals(req, res) {
         console.log('rentDate', rentDate.rows[0].rentDate)
 
         // ((((diaAlugado - diaDevolvido)/100000000)*(-1)).toFixed(0))
-        const delay = (((rentDate.rows[0].rentDate - returnDate) / (100000000)) * (-1)) + 1;
+        const delay = (((returnDate - rentDate.rows[0].rentDate) / (100 * 60 * 60 * 24)) * (-1));
 
         const gameIdForPrice = await db.query('SELECT * FROM rentals WHERE id = $1', [id]);
 
