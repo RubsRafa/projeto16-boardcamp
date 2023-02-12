@@ -68,7 +68,7 @@ export async function finishRentals(req, res) {
 
         } else {
 
-            delayFee = (Math.round(delay) - rental.rows[0].daysRented) * (price.rows[0].pricePerDay / 100);
+            delayFee = (Math.round(delay) - rental.rows[0].daysRented - 1) * (price.rows[0].pricePerDay / 100);
 
         }
 
