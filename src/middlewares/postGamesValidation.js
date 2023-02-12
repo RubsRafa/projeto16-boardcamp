@@ -2,7 +2,6 @@ import { db } from "../database/database.js";
 
 export async function postGamesValidation(req, res, next) {
     const game = req.body;
-    console.log(game)
 
     try {
 

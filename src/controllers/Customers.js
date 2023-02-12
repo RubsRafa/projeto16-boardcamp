@@ -1,7 +1,7 @@
 import { db } from "../database/database.js";
 
 export async function getCustomers(req, res) {
-    console.log('get sem id')
+ 
     try {
 
         const customers = await db.query('SELECT * FROM customers;');
@@ -15,8 +15,6 @@ export async function getCustomers(req, res) {
 };
 export async function getCustomersById(req, res) {
     const id = res.locals.id;
-    console.log('get com id')
-    console.log(id)
 
     try {
 
@@ -62,14 +60,12 @@ export async function putCustomers(req, res) {
             await db.query('UPDATE customers SET birthday = $1 WHERE id = $2;', [customer.birthday, id])
         }
 
-        console.log(customer.cpf)
-        console.log(customerChanges.rows[0].cpf)
         if(customerChanges.rows[0].cpf !== customer.cpf) {
-            console.log('entra aqui')
+          
             let cpfExist = await db.query('SELECT * FROM customers WHERE customers.cpf = $1;', [customer.cpf]);
-            console.log(cpfExist.rows[0])
 
             if (cpfExist.rows[0]) return res.sendStatus(409)
+            
             await db.query('UPDATE customers SET cpf = $1 WHERE id = $2;',[customer.cpf, id])
         }
 
