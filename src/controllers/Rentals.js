@@ -53,15 +53,15 @@ export async function finishRentals(req, res) {
     try {
         const rental = await db.query('SELECT * FROM rentals WHERE id = $1', [id]);
 
-        const returnDate = new Date("2023-02-15");
+        const returnDate = new Date("2023-02-21");
         console.log('returnDate', returnDate)
 
         const rentDate = await db.query('SELECT * FROM rentals WHERE id = $1', [id]);
         console.log('rentDate', rentDate.rows[0].rentDate)
 
         // ((((diaAlugado - diaDevolvido)/100000000)*(-1)).toFixed(0))
-        const delay = (((returnDate - rentDate.rows[0].rentDate) / (100 * 60 * 60 * 24)) * (-1));
-
+        const delay = (((returnDate - rentDate.rows[0].rentDate) / (1000 * 60 * 60 * 24)));
+        console.log((returnDate - rentDate.rows[0].rentDate) / (1000 * 60 * 60 * 24))
         const gameIdForPrice = await db.query('SELECT * FROM rentals WHERE id = $1', [id]);
 
         const price = await db.query('SELECT * FROM games WHERE id = $1', [gameIdForPrice.rows[0].gameId]);
