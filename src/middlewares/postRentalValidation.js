@@ -15,6 +15,10 @@ export async function postRentalValidation (req, res, next) {
 
         if (gameIdExist.rows[0].stockTotal <= 0) return res.sendStatus(400)
 
+        const gameRentals = await db.query('SELECT * FROM rentals WHERE rentals."gameId" = $1', [rental.gameId]);
+       
+        if (gameIdExist.rows[0].stockTotal - gameRentals.rowCount <= 0) return res.sendStatus(400);
+
         res.locals.rental = rental;
         next(); 
         
