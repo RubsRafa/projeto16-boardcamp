@@ -6,20 +6,20 @@ export async function postGamesValidation(req, res, next) {
     try {
 
         if (!game) return res.sendStatus(400);
-        if (!game.name || !game.image || !game.stockTotal || !game.pricePerDay) return res.sendStatus(400)
+        if (!game.name || !game.image || !game.stockTotal || !game.pricePerDay) return res.sendStatus(400);
 
-        if (game.stockTotal < 0 && game.pricePerDay < 1) return res.sendStatus(400)
+        if (game.stockTotal < 0 && game.pricePerDay < 1) return res.sendStatus(400);
 
         const gameNameExist = await db.query('SELECT (name) FROM games where name = $1;', [game.name]);
      
-        if (gameNameExist.rows.length !== 0) return res.status(409).send('This game already exist')
+        if (gameNameExist.rows.length !== 0) return res.status(409).send('This game already exist');
 
         res.locals.game = game;
         
         next(); 
         
     } catch (error) {
-        console.log(error)
-        return res.status(500).send(error)
-    }
-}
+        console.log(error);
+        return res.status(500).send(error);
+    };
+};

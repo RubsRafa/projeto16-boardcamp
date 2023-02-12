@@ -5,4 +5,4 @@ export const customerSchema = joi.object({
         phone: joi.string().min(10).max(11).required(),
         cpf: joi.string().length(11).required(),
         birthday: joi.date().iso("YYYY-MM-DD").required()
-})
+});

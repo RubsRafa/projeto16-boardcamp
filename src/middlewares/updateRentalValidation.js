@@ -5,7 +5,7 @@ export async function updateRentalValidation(req, res, next) {
 
     try {
         if (!id) return res.sendStatus(404);
-        const idExist = await db.query('SELECT * FROM rentals WHERE id = $1', [id])
+        const idExist = await db.query('SELECT * FROM rentals WHERE id = $1', [id]);
         
         if (!idExist.rows[0]) return res.sendStatus(404);
 
@@ -18,5 +18,5 @@ export async function updateRentalValidation(req, res, next) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error); 
-    }
-}
+    };
+};

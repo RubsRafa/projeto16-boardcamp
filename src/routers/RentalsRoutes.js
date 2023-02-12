@@ -3,8 +3,8 @@ import { deleteRentals, finishRentals, getRentals, postRentals } from "../contro
 import { deleteRentalValidation } from "../middlewares/deleteRentalValidation.js";
 import { postRentalValidation } from "../middlewares/postRentalValidation.js";
 import { updateRentalValidation } from "../middlewares/updateRentalValidation.js";
-import { validateSchema } from '../middlewares/validateSchema.js'
-import { rentalSchema } from '../schemas/RentalsSchema.js'
+import { validateSchema } from '../middlewares/validateSchema.js';
+import { rentalSchema } from '../schemas/RentalsSchema.js';
 
 const rentalsRouter = Router(); 
 

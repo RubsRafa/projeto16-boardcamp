@@ -5,4 +5,4 @@ export const gameSchema = joi.object({
     image: joi.string().required(),
     stockTotal: joi.number().positive().not(0).required(),
     pricePerDay: joi.number().positive().not(0).required()
-})
+});

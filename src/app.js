@@ -10,6 +10,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use([gamesRouter, customersRouter, rentalsRouter])
+app.use([gamesRouter, customersRouter, rentalsRouter]);
 
-app.listen(process.env.PORT, () => console.log(`Servidor funcionando na porta ${process.env.PORT}`))
+app.listen(process.env.PORT, () => console.log(`Servidor funcionando na porta ${process.env.PORT}`));

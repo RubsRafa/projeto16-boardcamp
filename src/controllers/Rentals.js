@@ -12,14 +12,14 @@ export async function getRentals(req, res) {
             ...r,
             customer: customer.rows.find(c => c.id === r.customerId),
             game: game.rows.find(g => g.id === r.gameId)
-        }))
+        }));
 
-        return res.send(newRentals)
+        return res.send(newRentals);
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return res.status(500).send(error);
-    }
+    };
 };
 export async function postRentals(req, res) {
     const rental = res.locals.rental;
@@ -44,7 +44,7 @@ export async function postRentals(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
-    }
+    };
 };
 export async function finishRentals(req, res) {
     const id = res.locals.id;
@@ -70,7 +70,7 @@ export async function finishRentals(req, res) {
 
             delayFee = (Math.round(delay) - rental.rows[0].daysRented - 1) * (price.rows[0].pricePerDay / 100);
 
-        }
+        };
 
         await db.query('UPDATE rentals SET "returnDate" = $1, "delayFee" = $2 WHERE id = $3;', [returnDate, delayFee.toFixed(2).replace('.', ''), id]);
         
@@ -79,8 +79,8 @@ export async function finishRentals(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
-    }
-}
+    };
+};
 export async function deleteRentals(req, res) {
     const id = res.locals.id; 
 
@@ -92,5 +92,5 @@ export async function deleteRentals(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error); 
-    }
-}
+    };
+};
