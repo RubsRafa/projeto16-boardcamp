@@ -79,7 +79,8 @@ export async function finishRentals(req, res) {
         }
 
         await db.query('UPDATE rentals SET "returnDate" = $1, "delayFee" = $2 WHERE id = $3;', [returnDate, delayFee.toFixed(2).replace('.', ''), id]);
-        return res.sendStatus(200)
+        
+        return res.status(200).send('OK');
 
     } catch (error) {
         console.log(error);
