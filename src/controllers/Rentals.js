@@ -53,7 +53,7 @@ export async function finishRentals(req, res) {
     try {
         const rental = await db.query('SELECT * FROM rentals WHERE id = $1', [id]);
 
-        const returnDate = new Date("YYYY-MM-DD");
+        const returnDate = new Date();
         console.log('returnDate', returnDate)
 
         const rentDate = await db.query('SELECT * FROM rentals WHERE id = $1', [id]);
