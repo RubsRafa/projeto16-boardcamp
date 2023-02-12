@@ -8,5 +8,5 @@ export function validateSchema(schema) {
             return res.status(400).send(error.details.map(err => err.message));
         }
         next(); 
-    };
-};
+    }
+}

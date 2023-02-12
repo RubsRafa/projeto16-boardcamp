@@ -10,8 +10,8 @@ export async function getGames(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
-    };
-};
+    }
+}
 
 export async function postGames(req, res) {
     const game = res.locals.game;
@@ -25,5 +25,5 @@ export async function postGames(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
-    };
-};
+    }
+}

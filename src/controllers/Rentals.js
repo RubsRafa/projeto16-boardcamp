@@ -19,8 +19,8 @@ export async function getRentals(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
-    };
-};
+    }
+}
 export async function postRentals(req, res) {
     const rental = res.locals.rental;
 
@@ -44,8 +44,8 @@ export async function postRentals(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
-    };
-};
+    }
+}
 export async function finishRentals(req, res) {
     const id = res.locals.id;
 
@@ -79,8 +79,8 @@ export async function finishRentals(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
-    };
-};
+    }
+}
 export async function deleteRentals(req, res) {
     const id = res.locals.id; 
 
@@ -92,5 +92,5 @@ export async function deleteRentals(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error); 
-    };
-};
+    }
+}

@@ -11,8 +11,8 @@ export async function getCustomers(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
-    };
-};
+    }
+}
 export async function getCustomersById(req, res) {
     const id = res.locals.id;
 
@@ -25,8 +25,8 @@ export async function getCustomersById(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
-    };
-};
+    }
+}
 export async function postCustomers(req, res) {
     const customer = res.locals.customer; 
     
@@ -39,8 +39,8 @@ export async function postCustomers(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
-    };
-};
+    }
+}
 export async function putCustomers(req, res) {
     const { id, customer } = res.locals;
 
@@ -62,7 +62,7 @@ export async function putCustomers(req, res) {
 
         if(customerChanges.rows[0].cpf !== customer.cpf) {
           
-            let cpfExist = await db.query('SELECT * FROM customers WHERE customers.cpf = $1;', [customer.cpf]);
+            const cpfExist = await db.query('SELECT * FROM customers WHERE customers.cpf = $1;', [customer.cpf]);
 
             if (cpfExist.rows[0]) return res.sendStatus(409);
             
@@ -74,5 +74,5 @@ export async function putCustomers(req, res) {
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
-    };
-};
+    }
+}
